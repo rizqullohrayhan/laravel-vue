@@ -3,6 +3,7 @@ services:
     name: laravel-app
     env: docker
     dockerfilePath: ./Dockerfile
+
     envVars:
       - key: APP_ENV
         value: production
@@ -13,8 +14,7 @@ services:
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        value: aws-0-ap-southeast-1.pooler.supabase.com
       - key: DB_PORT
-        value: 5432
-      - key: VITE_APP_URL
-        value: https://laravel-app.onrender.com
+      - key: DB_DATABASE
+      - key: DB_USERNAME
+      - key: DB_PASSWORD
