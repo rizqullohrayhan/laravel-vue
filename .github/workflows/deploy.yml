@@ -19,13 +19,13 @@ jobs:
         with:
           php-version: '8.2'
 
-      - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader
+      # - name: Install Composer dependencies
+      #   run: composer install --no-dev --optimize-autoloader
 
-      - name: Install Node dependencies & build assets
-        run: |
-          npm install
-          npm run build
+      # - name: Install Node dependencies & build assets
+      #   run: |
+      #     npm install
+      #     npm run build
 
       - name: Upload Laravel core (except /public)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
