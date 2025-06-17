@@ -1,0 +1,57 @@
+name: Deploy Laravel + Vue to Shared Hosting
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Install Node dependencies & build assets
+        run: |
+          npm install
+          npm run build
+
+      - name: Upload Laravel core (except /public)
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /laravel-vue/
+          exclude: |
+            public/**
+            node_modules/**
+            tests/**
+            .git*
+            .github/**
+            storage/app/public/**
+            vite.config.js
+            package.json
+            package-lock.json
+            postcss.config.js
+            tailwind.config.js
+
+      - name: Upload public/ to public_html/myproject/
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/laravel-vue/
+          local-dir: public
