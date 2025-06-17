@@ -28,7 +28,7 @@ jobs:
           npm run build
 
       - name: Upload Laravel core (except /public)
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
@@ -48,7 +48,7 @@ jobs:
             tailwind.config.js
 
       - name: Upload public/ to public_html/myproject/
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
